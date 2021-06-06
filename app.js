@@ -5,6 +5,10 @@
 // array to select from
 var array = ['rock', 'paper', 'scissors'];
 
+// declaration of winner
+let playerScore = 0;
+let computerScore = 0;
+
 // computer selection
 const computerPlay = () => {
     let selection = Math.floor(Math.random()*array.length);
@@ -44,21 +48,27 @@ const playRound = (playerSelection, computerSelection) => {
             result = 'its a tie';
         }
         else if((playerSelection === "scissors") && (computerSelection === "paper")){
+            playerScore = ++playerScore;
             result = 'you win! \n scissors cuts paper';
         }
         else if((playerSelection === "scissors") && (computerSelection === "rock")){
+            computerScore = ++computerScore;
             result = 'you lose! \n rock beats scissors';
         }
         else if ((playerSelection === "rock") && (computerSelection === "scissors")){
+            playerScore = ++playerScore;
             result = 'you win! \n rock beats scissors';
         }
         else if ((playerSelection === "rock") && (computerSelection === "paper")){
+            computerScore = ++computerScore;
             result = 'you lose! \n paper covers rock';
         }
         else if ((playerSelection === "paper") && (computerSelection === "rock")){
+            playerScore = ++playerScore;
             result = 'you win! \n paper covers rock';
         }
         else if ((playerSelection === "paper") && (computerSelection === "scissors")){
+            computerScore = ++computerScore;
             result = 'you lose! \n scissors cuts paper';
         }
         
@@ -74,11 +84,56 @@ const playRound = (playerSelection, computerSelection) => {
    
 }
 
+
+// const gameRepeat = (func, times) => {
+//     func();
+
+//     times && --times && repeat(func, times);
+// }
+
+// gameRepeat(playRound(playerSelection, computerSelection), 5);
+
+
+
+
+const game = (callback, interval, times) => {
+
+    let repeated = 0;
+    
+
+    const dotask = () => {
+        if (repeated < times){
+            callback();
+            repeated++;
+        }
+        else{
+            clearInterval(task);
+        }
+    }
+
+    const task = setInterval(dotask, interval);
+
+}
+
+
+const selectWinner = () => {
+    let finalWinner = "";
+    if(playerScore > computerScore){
+        finalWinner = `Player wins this set by ${playerScore} to ${computerScore}`;
+    }
+    else{
+        finalWinner = `Computer wins this set by ${computerScore} to ${playerScore}`;
+    }
+    return finalWinner;
+}
+
+game();
+
+// console.log(playerScore);
+
+
 console.log(playRound(playerSelection, computerSelection));
-
-
-
-
+selectWinner();
 
 
 
